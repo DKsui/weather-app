@@ -1,6 +1,7 @@
 from weather.api import get_weather, get_location
 from weather.formatter import format_weather
 from weather.validation import parse_coordinates
+from weather.history import save_search 
 
 def main() -> None:
     print("Weather App")
@@ -14,14 +15,18 @@ def main() -> None:
                 raise ValueError("City name cannot be empty.")
             location = get_location(city)
             coordinates = location.coordinates
+            query = f"{location.name}, {location.country}"
             print(f"\nWeather for {location.name}, {location.country}")
         elif choice == "2":
             latitude_input = input("Enter latitude: ").strip()
             longitude_input = input("Enter longitude: ").strip()
             coordinates = parse_coordinates(latitude_input, longitude_input)
+            query = (f"{coordinates.latitude}, "
+                     f"{coordinates.longitude}")
         else:
             raise ValueError("Invalid option. Please choose 1 or 2.")
         weather = get_weather(coordinates)
+        save_search(query, weather)
     except (ValueError, RuntimeError) as error:
         print(f"Error: {error}")
         return
