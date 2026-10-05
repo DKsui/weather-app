@@ -4,8 +4,8 @@ from weather.validation import parse_coordinates
 
 def main() -> None:
     print("Weather App")
-    latitude_input = input("Enter latitude: ")
-    longitude_input = input("Enter longitude: ")
+    latitude_input = input("Enter latitude: ").strip()
+    longitude_input = input("Enter longitude: ").strip()
     try:
         coordinates = parse_coordinates(latitude_input, longitude_input)
         weather = get_weather(coordinates)
