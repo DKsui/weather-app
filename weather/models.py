@@ -11,3 +11,9 @@ class WeatherData:
     feels_like: float
     humidity: float
     wind_speed: float
+
+@dataclass
+class Location:
+    name: str
+    country: str
+    coordinates: Coordinates
